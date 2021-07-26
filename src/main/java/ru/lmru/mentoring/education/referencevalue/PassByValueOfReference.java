@@ -27,12 +27,52 @@ public class PassByValueOfReference {
         return SerializationUtils.deserialize(bytes);
     }
 
-    public Object getObjectFromBytes(int size, byte... args) {
+    public Object getObjectFromBytes(int size,
+                                     byte arg0,
+                                     byte arg1,
+                                     byte arg2,
+                                     byte arg3,
+                                     byte arg4,
+                                     byte arg5,
+                                     byte arg6,
+                                     byte arg7,
+                                     byte arg8,
+                                     byte arg9,
+                                     byte arg10,
+                                     byte arg11,
+                                     byte arg12,
+                                     byte arg13,
+                                     byte arg14,
+                                     byte arg15,
+                                     byte arg16,
+                                     byte arg17,
+                                     byte arg18,
+                                     byte arg19) {
         if (size > MAX_SIZE) {
             throw new RuntimeException("Your object is very big in bytes");
         }
         byte[] objectBytes = new byte[size];
-        System.arraycopy(args, 0, objectBytes, 0, size);
+        objectBytes[0] = arg0;
+        objectBytes[1] = arg1;
+        objectBytes[2] = arg2;
+        objectBytes[3] = arg3;
+        objectBytes[4] = arg4;
+        objectBytes[5] = arg5;
+        objectBytes[6] = arg6;
+        objectBytes[7] = arg7;
+        objectBytes[8] = arg8;
+        objectBytes[9] = arg9;
+        objectBytes[10] = arg10;
+        objectBytes[11] = arg11;
+        objectBytes[12] = arg12;
+        objectBytes[13] = arg13;
+        objectBytes[14] = arg14;
+        objectBytes[15] = arg15;
+        objectBytes[16] = arg16;
+        objectBytes[17] = arg17;
+        objectBytes[18] = arg18;
+        objectBytes[19] = arg19;
+
         return getOjectFromBytesArray(objectBytes);
     }
 
