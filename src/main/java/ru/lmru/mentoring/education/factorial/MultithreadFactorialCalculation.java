@@ -8,7 +8,7 @@ import java.util.List;
 
 public class MultithreadFactorialCalculation {
 
-    public List<CustomThread> createThreads(int threadCount, List<Range> ranges, List<BigInteger> precalculation) {
+    private List<CustomThread> createThreads(int threadCount, List<Range> ranges, List<BigInteger> precalculation) {
         List<CustomThread> executionThreads = new ArrayList<>();
         for (int i = 1; i <= threadCount; i++) {
             executionThreads.add(new CustomThread(ranges.get(i - 1), i, precalculation));
@@ -16,13 +16,13 @@ public class MultithreadFactorialCalculation {
         return executionThreads;
     }
 
-    public void runThreads(List<CustomThread> threads) {
+    private void runThreads(List<CustomThread> threads) {
         for (int i = 0; i <= threads.size() - 1; i++) {
             threads.get(i).start();
         }
     }
 
-    public void waitThreads(List<CustomThread> threads) throws InterruptedException {
+    private void waitThreads(List<CustomThread> threads) throws InterruptedException {
         for (int i = 0; i <= threads.size() - 1; i++) {
             threads.get(i).join();
         }
