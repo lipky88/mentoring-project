@@ -65,7 +65,7 @@ public class MultithreadFactorialCalculation {
     }
 
     public static void main(String[] args) throws InterruptedException {
-        int threads = 1;
+        int threads = 10;
         long number = 10000;
 
         long sumTime = 0L;
@@ -92,6 +92,18 @@ public class MultithreadFactorialCalculation {
         //8:  avgTime = 13501970
         //9:  avgTime = 14845343
         //10: avgTime = 15539884
+
+        //long number = 90000;
+        //1:  avgTime = 966478104
+        //2:  avgTime = 330120610
+        //3:  avgTime = 196390364
+        //4:  avgTime = 148242053
+        //5:  avgTime = 133780609
+        //6:  avgTime = 134151135
+        //7:  avgTime = 110620422
+        //8:  avgTime = 109504402
+        //9:  avgTime = 117933499
+        //10: avgTime = 122350301
     }
 
 
