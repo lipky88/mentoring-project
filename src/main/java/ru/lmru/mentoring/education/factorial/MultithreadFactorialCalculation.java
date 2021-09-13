@@ -1,13 +1,14 @@
 package ru.lmru.mentoring.education.factorial;
 
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class MultithreadFactorialCalculation {
 
-    public List<CustomThread> createThreads(int threadCount, List<Range> ranges, List<Long> precalculation) {
+    public List<CustomThread> createThreads(int threadCount, List<Range> ranges, List<BigInteger> precalculation) {
         List<CustomThread> executionThreads = new ArrayList<>();
         for (int i = 1; i <= threadCount; i++) {
             executionThreads.add(new CustomThread(ranges.get(i - 1), i, precalculation));
@@ -27,20 +28,20 @@ public class MultithreadFactorialCalculation {
         }
     }
 
-    public Long calculate(int threadCount, long number) throws InterruptedException {
+    public BigInteger calculate(int threadCount, long number) throws InterruptedException {
         long rangeDifference = getRageCount(threadCount, number);
 //        System.out.println("rangeDifference:" + rangeDifference);
 
         List<Range> ranges = getRanges(rangeDifference, number);
 
-        List<Long> precalculation = Arrays.asList(new Long[threadCount]);
+        List<BigInteger> precalculation = Arrays.asList(new BigInteger[threadCount]);
         List<CustomThread> threads = createThreads(threadCount, ranges, precalculation);
         runThreads(threads);
         waitThreads(threads);
 
-        Long result = 1L;
-        for (Long value : precalculation) {
-            result *= value;
+        BigInteger result = BigInteger.ONE;
+        for (BigInteger value : precalculation) {
+            result = result.multiply(value);
         }
 
         return result;
@@ -65,39 +66,41 @@ public class MultithreadFactorialCalculation {
 
     public static void main(String[] args) throws InterruptedException {
         int threads = 1;
-        long number = 20;
+        long number = 10000;
 
         long sumTime = 0L;
         for (int i = 0; i < 100; i++) {
             MultithreadFactorialCalculation test = new MultithreadFactorialCalculation();
             long startTime = System.nanoTime();
-            Long result = test.calculate(threads, number);
+            BigInteger result = test.calculate(threads, number);
             long endTime = System.nanoTime();
             sumTime += endTime - startTime;
-            System.out.println(endTime - startTime);
+//            System.out.println(endTime - startTime);
+//            System.out.println("result: " + result);
         }
 
         System.out.println("\navgTime = " + sumTime / 100);
 
-        //1: 479969
-        //2: 620589
-        //3: 821463
-        //4: 1012965
-        //5: 1117506
-        //6: 1416791
-        //7: 1435521
-        //8: 1756952
-        //9: 1901002
-        //10: 2030838
+        //long number = 10000;
+        //1:  avgTime = 40788988
+        //2:  avgTime = 22718350
+        //3:  avgTime = 14685377
+        //4:  avgTime = 13019964
+        //5:  avgTime = 13223878
+        //6:  avgTime = 12943815
+        //7:  avgTime = 13864885
+        //8:  avgTime = 13501970
+        //9:  avgTime = 14845343
+        //10: avgTime = 15539884
     }
 
 
     private static class CustomThread extends Thread {
         private Range range;
         private int threadNumber;
-        private List<Long> precalculation;
+        private List<BigInteger> precalculation;
 
-        CustomThread(Range range, int threadNumber, List<Long> precalculation) {
+        CustomThread(Range range, int threadNumber, List<BigInteger> precalculation) {
             this.range = range;
             this.threadNumber = threadNumber;
             this.precalculation = precalculation;
@@ -106,9 +109,9 @@ public class MultithreadFactorialCalculation {
         @Override
         public void run()    //Этот метод будет выполнен в побочном потоке
         {
-            long result = 1;
+            BigInteger result = BigInteger.ONE;
             for (long i = range.getStartValue(); i <= range.getEndValue(); i++) {
-                result *= i;
+                result = result.multiply(BigInteger.valueOf(i));
             }
             precalculation.set(threadNumber - 1, result);
         }
