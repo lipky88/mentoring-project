@@ -38,10 +38,8 @@ public class SquareMeter {
     }
 
     private static String sortWord(String word) {
-        String temp = word.chars().sorted().collect(StringBuilder::new,
-                                                    StringBuilder::appendCodePoint, StringBuilder::append)
-                          .toString();
-
-        return temp;
+        return word.chars().sorted().collect(StringBuilder::new,
+                                             StringBuilder::appendCodePoint, StringBuilder::append)
+                   .toString();
     }
 }
