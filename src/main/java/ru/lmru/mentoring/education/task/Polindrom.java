@@ -1,4 +1,4 @@
-package ru.lmru.mentoring.education.temp;
+package ru.lmru.mentoring.education.task;
 
 public class Polindrom {
     public boolean isPolindrom(String word) {
